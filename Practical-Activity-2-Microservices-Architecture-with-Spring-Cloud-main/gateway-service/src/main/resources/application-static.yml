@@ -1,0 +1,30 @@
+eureka:
+  client:
+    enabled: false
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false
+          routes:
+            - id: customer-static
+              uri: "${CUSTOMER_URL:http://localhost:8081}"
+              predicates:
+                - Path=/CUSTOMER-SERVICE/**
+              filters:
+                - StripPrefix=1
+            - id: inventory-static
+              uri: "${INVENTORY_URL:http://localhost:8082}"
+              predicates:
+                - Path=/INVENTORY-SERVICE/**
+              filters:
+                - StripPrefix=1
+            - id: billing-static
+              uri: "${BILLING_URL:http://localhost:8083}"
+              predicates:
+                - Path=/BILLING-SERVICE/**
+              filters:
+                - StripPrefix=1
