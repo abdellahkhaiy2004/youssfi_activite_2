@@ -1,0 +1,17 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: config-service
+  profiles:
+    default: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: "classpath:/config-repo,file:./config-repo"
+        git:
+          uri: "${CONFIG_GIT_URI:}"
+          default-label: "${CONFIG_GIT_BRANCH:main}"
+          search-paths: config-repo
+          clone-on-start: true
